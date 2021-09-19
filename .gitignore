@@ -1,0 +1,5 @@
+# Do not import ssh keys.
+**/ssh_host*
+
+# ignore all files in local folder / sftp folder.
+local/**
