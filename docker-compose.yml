@@ -1,0 +1,18 @@
+# Create sftp server using the path ./local to test
+version: "3.7"
+services: 
+    sftp-server:
+        container_name: sftp-server-instance
+        build: 
+            context: .
+            dockerfile: Containerfile
+        environment:
+            - SFTP_USERNAME=$SFTP_USERNAME
+            - SFTP_AUTHORIZED_KEYS=$SFTP_AUTHORIZED_KEYS
+            - SFTP_UID=$SFTP_UID
+            - SFTP_GID=$SFTP_GID
+        volumes:
+            - $SFTP_PATH:/home/$SFTP_USERNAME:rw
+        ports:
+            - "2022:22"
+        restart: always
