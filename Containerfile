@@ -1,19 +1,20 @@
-FROM alpine:latest as build0
+FROM alpine:latest as base
 LABEL Maintainer="sean bourg <sean.bourg@gmail.com>"
 
+ARG VERSION=system
+
+ENV VERSION="${VERSION}"
+
 # Import required files/folders
-# COPY config /etc/ssh/sshd_config
-# COPY ssh-keys /etc/ssh/keys
-COPY container-entrypoint.sh /entrypoint.sh
+COPY files/ /root
 
 RUN apk update; \
     apk upgrade; \
     apk add openssh; \
-    chmod +x /entrypoint.sh; \
-    ssh-keygen -A
+    chmod +x /root/entrypoint.sh; 
 
 EXPOSE 22
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/root/entrypoint.sh"]
 
 CMD ["/usr/sbin/sshd", "-D"]
