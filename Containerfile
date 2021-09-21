@@ -1,17 +1,14 @@
 FROM alpine:latest as base
 LABEL Maintainer="sean bourg <sean.bourg@gmail.com>"
 
-ARG VERSION=system
-
-ENV VERSION="${VERSION}"
-
-COPY files/ /root
+COPY entrypoint.sh /entrypoint.sh
+COPY ssh-files /ssh-files
 
 RUN apk update; \
     apk upgrade; \
     apk add openssh; \
-    chmod +x /root/entrypoint.sh; 
+    chmod +x /entrypoint.sh; 
 
 EXPOSE 22
-ENTRYPOINT ["/root/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/sbin/sshd", "-D"]

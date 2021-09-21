@@ -4,7 +4,7 @@
 # Responsible for creating user account with the proper UID/GID, setting a random password, adding authorized keys, and generating SSH keys.
 
 ## Set variables to default values if not present
-SFTP_USERNAME$([[ -z "${SFTP_USERNAME}" ]] && echo 'sftp' || echo "${SFTP_USERNAME}")
+SFTP_USERNAME=$([[ -z "${SFTP_USERNAME}" ]] && echo 'sftp' || echo "${SFTP_USERNAME}")
 SFTP_UID=$([[ -z "${SFTP_UID}" ]] && echo '1000' || echo "${SFTP_UID}")
 SFTP_GID=$([[ -z "${SFTP_GID}" ]] && echo '1000' || echo "${SFTP_GID}")
 if [ -z "${SFTP_PASSWORD}" ]
@@ -34,8 +34,8 @@ fi
 if [ -n "$(ls /root/ssh-keys/* 2> /dev/null)" ]
 then
     KEY_SOURCE="User Provided"
-    cp /root/config /etc/ssh/sshd_config 
-    cp -R /root/ssh-keys /etc/ssh/keys
+    cp /ssh-files/config /etc/ssh/sshd_config 
+    cp -R /ssh-files/keys /etc/ssh/keys
     chmod 400 /etc/ssh/keys/*
 
     # append keys to config file
