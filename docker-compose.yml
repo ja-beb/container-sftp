@@ -3,10 +3,10 @@ version: "3.7"
 services: 
     sftp-server:
         container_name: "${CONTAINER_NAME:-sftp-server-instance}"
+        image: "${IMAGE_NAME:-sftp-server}"
         build: 
             context: .
             dockerfile: Containerfile
-        image: "${IMAGE_NAME:-sftp-server}"
         environment:
             - SFTP_USERNAME=$SFTP_USERNAME
             - SFTP_AUTHORIZED_KEYS=$SFTP_AUTHORIZED_KEYS
